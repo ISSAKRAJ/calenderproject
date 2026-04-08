@@ -7,6 +7,7 @@ import { FastAverageColor } from 'fast-average-color';
 import { useCalendar } from '@/hooks/useCalendar';
 import { audioEngine } from '@/utils/audio';
 import CommandPalette from './CommandPalette';
+import LiveClock from './LiveClock';
 
 const MONTH_IMAGES = [
   'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80', // Jan (Fixed)
@@ -364,6 +365,9 @@ export default function Calendar() {
           )}
         </AnimatePresence>
       </div>
+      
+      {/* Real-time Clock Widget */}
+      <LiveClock />
     </div>
   );
 }

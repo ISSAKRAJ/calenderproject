@@ -1,0 +1,42 @@
+.clockContainer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 20;
+  transition: all 0.3s ease;
+}
+
+/* Inherit the ambient night theme variables */
+:global(.ambientNight) .clockContainer {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.icon {
+  color: var(--aura-accent, #888);
+  opacity: 0.8;
+}
+
+.timeText {
+  font-family: var(--font-handwriting), monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111; /* Always bold and sharp */
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); /* Contrast rim to prevent wash out */
+}
+
+/* Dark mode text correction */
+:global(.ambientNight) .timeText {
+  color: #222;
+}
