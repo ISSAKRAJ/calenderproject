@@ -295,6 +295,8 @@
   grid-template-columns: repeat(7, 1fr);
   flex: 1;
   gap: 0; 
+  border-top: 1px solid rgba(0,0,0,0.08);
+  border-left: 1px solid rgba(0,0,0,0.08);
 }
 
 /* DAY CELLS */
@@ -306,8 +308,9 @@
   flex-direction: column;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
-  border-right: 1px solid rgba(0,0,0,0.03);
-  border-bottom: 1px solid rgba(0,0,0,0.03);
+  border-right: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  background: transparent;
 }
 
 .dayCell:nth-child(7n) { border-right: none; }
@@ -331,7 +334,9 @@
   z-index: 5;
 }
 
-.dimmedDay { opacity: 0.3; }
+.dimmedDay { 
+  opacity: 0.45; /* Darker than before */
+}
 
 .dayNumberContainer {
   display: flex;
@@ -340,19 +345,21 @@
 }
 
 .dayNumber {
-  width: 32px; /* Bigger number */
+  width: 32px; 
   height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  font-weight: 500;
-  font-size: 1.1rem; /* Bigger font */
+  font-weight: 800; /* Absolute heaviest visual clarity */
+  font-size: 1.25rem; /* Noticeably larger numbers */
+  color: #111; /* Locked pitch black */
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); /* Contrast rim */
 }
 
 .todayNumber {
-  background-color: var(--foreground);
-  color: var(--background);
+  background-color: #111; /* True black background for 'today' inverse */
+  color: #F9F9F9; /* High-contrast white */
 }
 
 .noteIndicator {
