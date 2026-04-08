@@ -210,6 +210,12 @@
   border: none;
   resize: none;
   flex: 1;
+  overflow-y: auto; /* Allows scrolling but we will hide the bar */
+  scrollbar-width: none; /* Firefox */
+}
+
+.monthlyNotesInput::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
 }
 
 .monthlyNotesInput::placeholder {
@@ -537,6 +543,12 @@
   resize: none;
   margin-top: 5px; 
   color: var(--foreground); /* Dark text for light panel */
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.dailyNoteInput::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
 }
 
 .dailyNoteInput:focus {
