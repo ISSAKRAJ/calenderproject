@@ -1,0 +1,614 @@
+.calendarContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 780px; /* Slightly wider for the breathable grid */
+  background-color: var(--surface);
+  border-radius: 4px; /* Harder edge for physical realism */
+  box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.25),
+              0 0 40px var(--aura-glow, rgba(0,0,0,0)); /* DYNAMIC AURA */
+  position: relative;
+  transition: box-shadow 0.6s ease;
+  z-index: 1;
+}
+
+/* =========================================================================
+   SPIRAL BINDING - MODERN & METALLIC
+   ========================================================================= */
+.spiralBinding {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 44px;
+  background-color: transparent;
+  position: absolute;
+  top: 400px;
+  transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.spiralLoop {
+  position: relative;
+  width: 6px; /* Thinner */
+  height: 48px;
+  background: linear-gradient(to right, #cfcfcf 0%, #ffffff 40%, #a8a8a8 80%, #666666 100%);
+  border-radius: 4px;
+  box-shadow: 2px 5px 8px rgba(0, 0, 0, 0.4), inset -1px -1px 2px rgba(0,0,0,0.2);
+}
+
+/* The 'hole' shadows where the ring enters the paper */
+.spiralLoop::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  filter: blur(1px);
+  z-index: -1;
+}
+.spiralLoop::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  filter: blur(1px);
+  z-index: -1;
+}
+
+/* =========================================================================
+   TOP PANEL (HERO) - 3D HINGE EFFECT
+   ========================================================================= */
+.heroPanelPerspective {
+  perspective: 1200px; 
+  height: 400px;
+  position: relative;
+  border-radius: 4px 4px 0 0;
+  z-index: 5;
+}
+
+.heroPanel {
+  position: absolute;
+  inset: 0;
+  background-color: var(--surface);
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+  transform-origin: top center; 
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  /* Subtle dark gradient overlay at the bottom so text pops */
+  background: linear-gradient(
+    to bottom, 
+    rgba(0,0,0,0.1) 0%, 
+    rgba(0,0,0,0) 40%, 
+    rgba(0,0,0,0.3) 70%, 
+    rgba(0,0,0,0.85) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem;
+  color: white;
+  transition: box-shadow 0.6s ease;
+}
+
+.heroHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.heroMonth {
+  font-family: var(--font-serif);
+  font-size: 4.5rem; /* Larger */
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+
+.heroYear {
+  font-size: 1.8rem;
+  font-weight: 400;
+  opacity: 0.95;
+  letter-spacing: 0.1em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.heroMotivation {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  opacity: 0.9;
+  margin-top: 0.5rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+/* =========================================================================
+   GLASSMORPHISM MONTHLY NOTES
+   ========================================================================= */
+.monthlyNotesContainer {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: rgba(255, 255, 255, 0.25); 
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 280px;
+  min-height: 150px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 0 20px rgba(255,255,255,0.15);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.6s ease;
+}
+
+.monthlyNotesHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.handwrittenText {
+  font-family: var(--font-handwriting);
+  font-size: 1.6rem;
+  color: #fff; /* White looks better on glass */
+  line-height: 1.4;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.monthlyNotesInput {
+  background: transparent;
+  border: none;
+  resize: none;
+  flex: 1;
+}
+
+.monthlyNotesInput::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.monthlyNotesInput:focus {
+  outline: none;
+}
+
+/* =========================================================================
+   BOTTOM PANEL (GRID) - PREMIUM CARDSTOCK
+   ========================================================================= */
+.gridPanel {
+  flex: 1;
+  padding: 3.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 0 0 4px 4px;
+  background-color: #F9F9F9;
+  /* SVG Noise filter for premium paper grain */
+  background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+}
+
+@media (max-width: 600px) {
+  .gridPanel { padding: 2rem 1rem; }
+  .spiralBinding { top: 400px; }
+}
+
+.gridHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  height: 40px;
+}
+
+.clearBtn {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #111; /* Extremely dark */
+  background: rgba(0,0,0,0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.25); /* Stronger border */
+  transition: all 0.2s ease;
+}
+
+.clearBtn:hover {
+  background: rgba(0,0,0,0.8);
+  color: white; /* Inverse punch on hover */
+  border-color: rgba(0,0,0,0.8);
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.navBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--foreground);
+  transition: all 0.2s;
+  background: transparent;
+}
+
+.navBtn:hover, .navBtn:focus {
+  border-color: var(--aura-accent, var(--primary));
+  color: var(--aura-accent, var(--primary));
+  box-shadow: 0 4px 12px var(--aura-glow, transparent);
+  outline: none;
+}
+
+/* GRID LAYOUT - BREATHING ROOM */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 0.5rem;
+}
+
+.weekday {
+  text-align: center;
+  font-size: 0.80rem;
+  font-weight: 800;
+  color: #222; /* Very dark text */
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding-bottom: 1.5rem;
+  opacity: 1; /* Fully visible */
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  flex: 1;
+  gap: 0; 
+}
+
+/* DAY CELLS */
+.dayCell {
+  position: relative;
+  min-height: 110px; /* MORE BREATHING ROOM */
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  border-right: 1px solid rgba(0,0,0,0.03);
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+.dayCell:nth-child(7n) { border-right: none; }
+
+@media (max-width: 600px) {
+  .dayCell { min-height: 80px; padding: 0.4rem; }
+}
+
+/* CLEAR CUT UI HOVER DETAILING */
+.dayCell:hover { 
+  background-color: var(--surface);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1), 0 0 0 1.5px var(--aura-accent, rgba(0,0,0,0.1));
+  z-index: 10;
+  border-radius: 6px;
+}
+
+/* KEYBOARD A11Y FOCUS */
+.focusedDay {
+  box-shadow: inset 0 0 0 2px var(--aura-accent, var(--primary));
+  z-index: 5;
+}
+
+.dimmedDay { opacity: 0.3; }
+
+.dayNumberContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dayNumber {
+  width: 32px; /* Bigger number */
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 500;
+  font-size: 1.1rem; /* Bigger font */
+}
+
+.todayNumber {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+.noteIndicator {
+  font-size: 1rem;
+  color: var(--aura-accent, var(--accent));
+  line-height: 1;
+  margin-top: 4px;
+}
+
+.addNoteBtn {
+  margin-top: auto;
+  font-size: 0.70rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  opacity: 0;
+  text-align: left;
+  transition: opacity 0.2s, color 0.2s;
+  padding: 2px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dayCell:hover .addNoteBtn,
+.dayCell:focus-within .addNoteBtn { opacity: 1; }
+
+.addNoteBtn:hover {
+  color: var(--aura-accent, var(--primary));
+}
+
+/* DYNAMIC AURA && RANGE STYLING */
+
+/* Ghost range styling (hovering without end date) */
+.hoveredRangeDay {
+  background-color: var(--aura-ghost, rgba(0,0,0,0.03));
+  position: relative;
+}
+
+/* Semi-transparent solid selection using Aura color */
+.selectedDay {
+  background-color: var(--aura-glow, rgba(74, 93, 35, 0.15)); 
+}
+
+.selectedEndpoint {
+  background-color: var(--aura-accent, var(--primary)) !important;
+  color: white;
+  box-shadow: 0 4px 15px var(--aura-glow, rgba(0,0,0,0.2));
+  border-radius: 6px; /* slightly round the endpoints */
+}
+
+.selectedEndpoint .addNoteBtn { color: rgba(255, 255, 255, 0.8); }
+.selectedEndpoint .addNoteBtn:hover { color: white; }
+.selectedEndpoint .dayNumber { font-weight: 600; }
+.selectedEndpoint.focusedDay { box-shadow: inset 0 0 0 2px white, 0 4px 15px var(--aura-glow); }
+
+
+/* =========================================================================
+   DAILY NOTES SIDEBAR (SLIDE IN OVER GRID)
+   ========================================================================= */
+.notesPanelWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 380px;
+  z-index: 20;
+  overflow: hidden;
+  border-radius: 0 0 4px 0;
+}
+
+@media (max-width: 600px) {
+  .notesPanelWrapper { width: 100%; border-radius: 0 0 4px 4px; }
+}
+
+.notesPanel {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.85); /* Slightly frosty */
+  backdrop-filter: blur(16px);
+  border-left: 1px solid rgba(0,0,0,0.05);
+  box-shadow: -15px 0 40px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+}
+
+.notesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid rgba(0,0,0,0.05);
+  padding-bottom: 1rem;
+}
+
+.handwrittenTitle {
+  font-family: var(--font-handwriting);
+  font-size: 2.5rem;
+  color: var(--foreground);
+  line-height: 1;
+}
+
+.notesHeader button {
+  color: var(--text-muted);
+  border-radius: 50%;
+  padding: 0.5rem;
+  transition: all 0.2s;
+}
+
+.notesHeader button:hover {
+  background: rgba(0,0,0,0.05);
+  color: var(--foreground);
+  transform: rotate(90deg);
+}
+
+.handwrittenNotesContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dailyNoteInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  resize: none;
+  margin-top: 5px; 
+  color: var(--foreground); /* Dark text for light panel */
+}
+
+.dailyNoteInput:focus {
+  outline: none;
+}
+
+.notesActions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.saveNoteBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--aura-accent, var(--primary));
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 15px var(--aura-glow, rgba(0,0,0,0.2));
+}
+
+.saveNoteBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--aura-glow, rgba(0,0,0,0.3));
+}
+
+.saveNoteBtn:active {
+  transform: translateY(0);
+}
+
+/* =========================================================================
+   ULTIMATE FEATURES CSS
+   ========================================================================= */
+
+/* Top bar controls (Sound and Time toggle) */
+.headerControls {
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  display: flex;
+  gap: 0.8rem;
+  z-index: 50;
+}
+
+.headerIconBtn {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.headerIconBtn:hover {
+  background: rgba(0, 0, 0, 0.4);
+  transform: scale(1.05);
+}
+
+/* Drag and Drop Notes CSS */
+.draggableNote {
+  cursor: grab;
+  position: relative;
+  transition: transform 0.1s ease;
+}
+.draggableNote:active {
+  cursor: grabbing;
+}
+
+.isDraggingOver {
+  background-color: var(--aura-ghost, rgba(0, 0, 0, 0.05));
+  box-shadow: inset 0 0 0 2px var(--aura-accent, var(--primary));
+  border-radius: 4px;
+}
+.isDraggingOver::after {
+  content: "Drop Note Here";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--aura-accent, var(--primary));
+  background: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  pointer-events: none;
+}
+
+/* Delete Button for Peel Animation */
+.deleteNoteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.deleteNoteBtn:hover {
+  background: #dc3545;
+  color: white;
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+/* Night Mode (Ambient Engine) */
+.ambientNight {
+  box-shadow: 0 60px 120px -20px rgba(0, 0, 0, 0.6),
+              0 0 80px var(--aura-glow, rgba(0,0,0,0));
+}
+.ambientNight .gridPanel {
+  background-color: #e0ddd8; /* Dimmer paper */
+  background-image: linear-gradient(135deg, rgba(255, 180, 0, 0.05) 0%, rgba(0,0,0,0.1) 100%),
+                    url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+}
+.ambientNight .spiralLoop {
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.6), inset -1px -1px 2px rgba(0,0,0,0.4);
+}
