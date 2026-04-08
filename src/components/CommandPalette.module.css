@@ -13,13 +13,19 @@
 
 .palette {
   background: var(--surface, #ffffff);
-  width: 100%;
+  width: 90%; /* Instead of 100%, leave breathing room on phones */
   max-width: 600px;
   border-radius: 12px;
   box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0,0,0,0.05);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .palette { width: 95%; }
+  .input { font-size: 1rem; padding: 1rem 0; }
+  .inputWrapper { padding: 0 1rem; }
 }
 
 .inputWrapper {

@@ -26,6 +26,14 @@
   opacity: 0.8;
 }
 
+@media (max-width: 600px) {
+  .clockContainer {
+    bottom: 0.5rem;
+    right: 0.5rem;
+    padding: 0.2rem 0.6rem;
+  }
+}
+
 .timeText {
   font-family: var(--font-handwriting), monospace;
   font-size: 1.25rem;
@@ -34,6 +42,12 @@
   text-transform: uppercase;
   letter-spacing: -0.02em;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); /* Contrast rim to prevent wash out */
+}
+
+@media (max-width: 600px) {
+  .timeText {
+    font-size: 0.9rem;
+  }
 }
 
 /* Dark mode text correction */
