@@ -107,9 +107,13 @@ export default function Calendar() {
     audioEngine.playThwip();
   };
 
-  const handleSaveNote = () => {
+  const handleSaveNote = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
     saveDailyNote();
-    audioEngine.playScratch();
+    try {
+      audioEngine.playScratch();
+    } catch(e) { console.error('Audio engine skip', e); }
   };
 
   const handleDeleteNote = () => {
@@ -275,6 +279,7 @@ export default function Calendar() {
                   e.preventDefault(); // Must prevent default to allow DND drop
                   if (dragOverDate !== dateKey) setDragOverDate(dateKey);
                 }}
+                onDragEnter={(e) => e.preventDefault()}
                 onDragLeave={() => {
                   if (dragOverDate === dateKey) setDragOverDate(null);
                 }}
@@ -302,6 +307,13 @@ export default function Calendar() {
                       onDragStart={(e) => {
                         e.stopPropagation();
                         e.dataTransfer.setData('text/plain', dateKey);
+                        // Prevent the note panel from popping open during a drag
+                        setIsNotesPanelOpen(false); 
+                      }}
+                      onMouseDown={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openNotesPanel(day);
                       }}
                     >
                       ✎
